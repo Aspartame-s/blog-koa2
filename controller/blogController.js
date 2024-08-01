@@ -44,23 +44,32 @@ const updateBlog = async (id, blogData = {}) => {
     // return true
     const {title, content} = blogData
     let sql = `update blogs set title='${title}', content='${content}' where id='${id}'`
-    return exec(sql).then(updateData => {
-        if(updateData.affectedRows > 0) {
-            return true
-        }
-        return false
-    })
+    const updateData = await exec(sql)
+    if(updateData.affectedRows > 0) {
+        return true
+    }
+    return false
+    // return exec(sql).then(updateData => {
+    //     if(updateData.affectedRows > 0) {
+    //         return true
+    //     }
+    //     return false
+    // })
 }
 //删除博客
 const deleteBlog = async (id, author) => {
     let sql = `delete from blogs where id='${id}' and author='${author}'`
-    console.log(sql)
-    return exec(sql).then(deleteData => {
-        if(deleteData.affectedRows > 0) {
-            return true
-        }
-        return false
-    })
+    const deleteData = await exec(sql)
+    if(deleteData.affectedRows > 0) {
+        return true
+    }
+    return false
+    // return exec(sql).then(deleteData => {
+    //     if(deleteData.affectedRows > 0) {
+    //         return true
+    //     }
+    //     return false
+    // })
 }
 
 module.exports = {
